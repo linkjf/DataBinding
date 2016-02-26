@@ -21,18 +21,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{user.firstName}"
+            android:textSize="@dimen/name_text_size"
             />
 
         <!--Not cool-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/black"
             android:paddingLeft="5dp"
             android:text="@{user.lastName}"
-            android:textColor="@android:color/white"
+            android:textSize="@dimen/name_text_size"
+            android:textStyle="bold"
             android:visibility="@{user.hasLastName ? View.VISIBLE : View.GONE}"/>
-
 
     </LinearLayout>
 

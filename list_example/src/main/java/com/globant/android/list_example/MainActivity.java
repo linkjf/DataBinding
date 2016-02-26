@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,35 +21,19 @@ public class MainActivity extends AppCompatActivity {
 		ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 		RecyclerView recyclerView = binding.list;
 
-		ArrayList<User> users = new ArrayList<>();
-		users.add(new User("Jose", "Ortega"));
-		users.add(new User("Puma", "Rodriguez"));
-		users.add(new User("Andres", ""));
-		SimpleAdapter simpleAdapter = new SimpleAdapter(users);
+		SimpleAdapter simpleAdapter = new SimpleAdapter(getUserNames());
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		recyclerView.setAdapter(simpleAdapter);
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-			return true;
+	private ArrayList<User> getUserNames(){
+		String[] userNames = getResources().getStringArray(R.array.names);
+		ArrayList<User> users = new ArrayList<>();
+		for (String userFullName : userNames){
+			String[] nameParts = TextUtils.split(userFullName, " ");
+			users.add(new User(nameParts[0], nameParts[1]));
 		}
-
-		return super.onOptionsItemSelected(item);
+		return users;
 	}
 }

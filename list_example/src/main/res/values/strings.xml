@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Android List Databinding Example</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string-array name="names">
+        <item>Jose Ortega</item>
+        <item>Max Power</item>
+        <item>Mad Max</item>
+        <item>Bruce Wayne</item>
+        <item>Kayne West</item>
+        <item>North West</item>
+    </string-array>
 </resources>
