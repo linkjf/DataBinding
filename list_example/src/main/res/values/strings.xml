@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Android List Databinding Example</string>
+    <string name="user_name_hint">Insert an user name</string>
+    <string name="user_last_name_hint">Insert an user last name</string>
+    <string name="add_user">Add User</string>
+    <string name="instructions">Just type a name and a last name and let Databinding do magic!</string>
     <string-array name="names">
         <item>Jose Ortega</item>
         <item>Max Power</item>

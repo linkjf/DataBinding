@@ -6,8 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.globant.android.list_example.databinding.ActivityMainBinding;
 
@@ -18,14 +19,26 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+		final ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 		RecyclerView recyclerView = binding.list;
 
-		SimpleAdapter simpleAdapter = new SimpleAdapter(getUserNames());
+		final SimpleAdapter simpleAdapter = new SimpleAdapter(getUserNames());
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		recyclerView.setAdapter(simpleAdapter);
+		binding.addUser.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String name = binding.userNameEdit.getText().toString();
+				String lastName = binding.userLastNameEdit.getText().toString();
+				if(simpleAdapter.addUser(new User(name, lastName))){
+					binding.userNameEdit.setText("");
+					binding.userLastNameEdit.setText("");
+					binding.userNameEdit.requestFocus();
+				}
+			}
+		});
 
-	}
+ 	}
 
 	private ArrayList<User> getUserNames(){
 		String[] userNames = getResources().getStringArray(R.array.names);
