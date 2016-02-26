@@ -4,6 +4,8 @@
     <string name="user_last_name_hint">Insert an user last name</string>
     <string name="add_user">Add User</string>
     <string name="instructions">Just type a name and a last name and let Databinding do magic!</string>
+    <string name="add_user_complete_form">Please, type a name and a last name</string>
+    <string name="add_user_error">Something went wrong, please try again!</string>
     <string-array name="names">
         <item>Jose Ortega</item>
         <item>Max Power</item>

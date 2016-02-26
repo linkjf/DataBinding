@@ -16,29 +16,44 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+	private ActivityMainBinding binding;
+	private SimpleAdapter simpleAdapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		final ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+		binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 		RecyclerView recyclerView = binding.list;
-
-		final SimpleAdapter simpleAdapter = new SimpleAdapter(getUserNames());
+		simpleAdapter = new SimpleAdapter(getUserNames());
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		recyclerView.setAdapter(simpleAdapter);
 		binding.addUser.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String name = binding.userNameEdit.getText().toString();
-				String lastName = binding.userLastNameEdit.getText().toString();
-				if(simpleAdapter.addUser(new User(name, lastName))){
-					binding.userNameEdit.setText("");
-					binding.userLastNameEdit.setText("");
-					binding.userNameEdit.requestFocus();
-				}
+				addUser();
 			}
 		});
-
  	}
+
+	private void addUser(){
+		String name = binding.userNameEdit.getText().toString();
+		String lastName = binding.userLastNameEdit.getText().toString();
+		if(checkEditText()){
+			if(simpleAdapter.addUser(new User(name, lastName))){
+				binding.userNameEdit.setText("");
+				binding.userLastNameEdit.setText("");
+				binding.userNameEdit.requestFocus();
+			}else{
+				Toast.makeText(MainActivity.this, getString(R.string.add_user_error), Toast.LENGTH_SHORT).show();
+			}
+		}else{
+			Toast.makeText(MainActivity.this, getString(R.string.add_user_complete_form), Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	private boolean checkEditText(){
+		return !TextUtils.isEmpty(binding.userNameEdit.getText()) && !TextUtils.isEmpty(binding.userLastNameEdit.getText());
+	}
 
 	private ArrayList<User> getUserNames(){
 		String[] userNames = getResources().getStringArray(R.array.names);
