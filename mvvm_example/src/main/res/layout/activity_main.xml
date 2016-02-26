@@ -1,6 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         tools:context=".MainActivity">
 
     <data>
@@ -10,7 +10,7 @@
             type="com.globant.android.mvvm_example.UserViewModel"/>
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -20,22 +20,47 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/instructions"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{uservm.userFirstName}"/>
+            android:text="@string/instructions"
+            android:textSize="@dimen/name_text_size"/>
 
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{uservm.userLastName}"/>
+            android:layout_below="@+id/instructions"
+            android:text="@{uservm.userFirstName}"
+            android:textSize="@dimen/name_text_size"/>
+
+        <TextView
+            android:id="@+id/last_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/instructions"
+            android:layout_toEndOf="@+id/name"
+            android:layout_toRightOf="@+id/name"
+            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
+            android:text="@{uservm.userLastName}"
+            android:textSize="@dimen/name_text_size"/>
 
         <EditText
             android:id="@+id/user_name_edit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:addTextChangedListener="@{uservm.nameWatcher}"
-            android:hint="Da name"/>
+            android:layout_below="@+id/name"
+            android:hint="@string/user_name_hint"
+            app:addTextChangedListener="@{uservm.nameWatcher}"/>
 
-    </LinearLayout>
+        <EditText
+            android:id="@+id/user_last_name_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_name_edit"
+            android:hint="@string/user_last_name_hint"
+            app:addTextChangedListener="@{uservm.lastNameWatcher}"/>
+    </RelativeLayout>
 
 </layout>
